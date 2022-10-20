@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  webapp:
+    image: gen20:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - /home/max/develop/hackademy/gen20-intro:/app/gen20-intro
+      - /home/max/develop/hackademy/gen20-intro/data:/app/data
+      - data:/app/named_volume
+    tty: true
+    stdin_open: true
+
+  webapp2:
+    image: gen20:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - data2:/app/named_volume
+    tty: true
+    stdin_open: true
+
+  db:
+    image: postgres:13.8-bullseye
+    restart: unless-stopped
+    ports:
+      - 5436:5432
+    environment:
+      - POSTGRES_PASSWORD=mipassseguro
+      - POSTGRES_USER=db_user
+      - POSTGRES_DB=webapp_db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - PG-DATA:/var/lib/postgresql/data/pgdata
+
+volumes:
+  data:
+  data2:
+  PG-DATA:
