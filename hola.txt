@@ -3,3 +3,4 @@ hola desde el contenedor
 esto tampoco debería de ir directo a master
 aqui está la info faltante
 aqui va algo de mi info y puede chocar
+info desde max dev
